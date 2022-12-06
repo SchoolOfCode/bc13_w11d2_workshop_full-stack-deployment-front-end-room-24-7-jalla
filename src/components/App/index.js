@@ -5,7 +5,7 @@ import ClearList from "../ClearList";
 
 /* 1. App will contain components which will allow a person to input items into a list, show the items that are in the list, 
 and clear all of the items in a list. 
-2. In order for the components to interact with one another, some functionality will need to be hoisted into the App component
+2. In order for the components to interact with eachother, some functionality will need to be hoisted into the App component
  */
 
 const url = process.env.REACT_APP_BACKEND_URL ?? "http://localhost:3000";
