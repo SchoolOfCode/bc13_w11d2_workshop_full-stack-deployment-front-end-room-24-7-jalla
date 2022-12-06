@@ -3,7 +3,7 @@
 import React from "react";
 import ListItem from "../ListItem";
 
-function ShowList({ list, tickItem, updateCompletedInDatabase, setEditItem }) {
+function ShowList({ list, tickItem, updateCompletedInDatabase, handleDelete }) {
   return (
     <ol>
       {list.map((listItem) => (
@@ -13,6 +13,7 @@ function ShowList({ list, tickItem, updateCompletedInDatabase, setEditItem }) {
           key={listItem.id}
           tickItem={() => tickItem(listItem.id)}
           updateCompletedInDatabase={() => updateCompletedInDatabase(listItem)}
+          handleDelete={() => handleDelete(listItem.id)}
         />
       ))}
     </ol>

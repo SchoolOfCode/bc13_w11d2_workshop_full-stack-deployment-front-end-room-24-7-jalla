@@ -26,8 +26,6 @@ function App() {
   }, []);
 
 
-
-
   async function addToList(newListItem) {
     //This function changes the state of the list by pushing the text from the input field in to the array.
     const listItemWithoutId = {
@@ -81,10 +79,22 @@ function App() {
     console.log(data.payload[0])
   }
 
+  async function handleDelete(id) {
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].id === id) {
+        await fetch(`${url}/items/${id}`, {
+          method: "DELETE"
+        })
+        const deleted = [...list.slice(0, i), ...list.slice(i + 1)];
+        setList(deleted);
+      }
+    } return
+  }
+
   return (
     <section>
       <InputList addToList={addToList} buttonText={"Add To List"} />
-      <ShowList list={list} tickItem={tickItem} updateCompletedInDatabase={updateCompletedInDatabase} />
+      <ShowList list={list} tickItem={tickItem} updateCompletedInDatabase={updateCompletedInDatabase} handleDelete={handleDelete} />
       <ClearList clearList={clearList} buttonText={"Clear List"} />
     </section>
   );
