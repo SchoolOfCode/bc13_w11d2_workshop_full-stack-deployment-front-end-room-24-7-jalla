@@ -3,7 +3,7 @@
 import React from "react";
 import ListItem from "../ListItem";
 
-function ShowList({ list, tickItem }) {
+function ShowList({ list, tickItem, updateCompletedInDatabase }) {
   return (
     <ol>
       {list.map((listItem) => (
@@ -12,6 +12,7 @@ function ShowList({ list, tickItem }) {
           completed={listItem.completed}
           key={listItem.id}
           tickItem={() => tickItem(listItem.id)}
+          updateCompletedInDatabase={() => updateCompletedInDatabase(listItem)}
         />
       ))}
     </ol>

@@ -3,12 +3,18 @@
 import React from "react";
 import "./listItem.css";
 
-function ListItem({ name, completed, tickItem }) {
+function ListItem({ name, completed, tickItem, updateCompletedInDatabase }) {
+  
+  function onClicks() {
+    tickItem();
+    updateCompletedInDatabase();
+  }
+
   return (
     <li
       data-testid="list-item"
       className={completed ? "tickedItem" : "untickedItem"}
-      onClick={tickItem}
+      onClick={onClicks}
     >
       {name}
     </li>

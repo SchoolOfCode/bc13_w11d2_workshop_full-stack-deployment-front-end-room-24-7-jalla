@@ -64,10 +64,21 @@ function App() {
     });
   }
 
+  async function updateCompletedInDatabase(item) {
+    await fetch(`${url}/items/${item.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        item: item.item,
+        completed: !item.completed
+       }),
+    });
+  }
+
   return (
     <section>
       <InputList addToList={addToList} buttonText={"Add To List"} />
-      <ShowList list={list} tickItem={tickItem} />
+      <ShowList list={list} tickItem={tickItem} updateCompletedInDatabase={updateCompletedInDatabase}/>
       <ClearList clearList={clearList} buttonText={"Clear List"} />
     </section>
   );
