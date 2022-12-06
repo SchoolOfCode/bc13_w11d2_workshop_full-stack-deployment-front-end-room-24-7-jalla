@@ -65,7 +65,7 @@ function App() {
   }
 
   async function updateCompletedInDatabase(item) {
-    await fetch(`${url}/items/${item.id}`, {
+    const response = await fetch(`${url}/items/${item.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
@@ -73,6 +73,8 @@ function App() {
         completed: !item.completed
        }),
     });
+    let data = await response.json()
+    console.log(data)
   }
 
   return (
