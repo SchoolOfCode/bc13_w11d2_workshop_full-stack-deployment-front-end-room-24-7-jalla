@@ -12,8 +12,7 @@ function ShowList({ list, tickItem, updateCompletedInDatabase, setEditItem }) {
           completed={listItem.completed}
           key={listItem.id}
           tickItem={() => tickItem(listItem.id)}
-          updateCompletedInDatabase={updateCompletedInDatabase}
-          setEditItem={() => setEditItem(listItem)}
+          updateCompletedInDatabase={() => updateCompletedInDatabase(listItem)}
         />
       ))}
     </ol>

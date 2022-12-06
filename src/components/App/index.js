@@ -12,7 +12,6 @@ const url = process.env.REACT_APP_BACKEND_URL ?? "http://localhost:3000";
 
 function App() {
   const [list, setList] = useState([]);
-  const [edit, setEdit] = useState([])
 
   // Fetching shopping list data from shopping list API.
   useEffect(() => {
@@ -20,10 +19,14 @@ function App() {
       const response = await fetch(`${url}/items`);
       const data = await response.json(response);
       console.log(data);
-      setList(data.payload);
+      let sortedItems = [...data.payload].sort(function (a, b) { return a.id - b.id });
+      setList(sortedItems);
     }
     getShoppingList();
   }, []);
+
+
+
 
   async function addToList(newListItem) {
     //This function changes the state of the list by pushing the text from the input field in to the array.
@@ -65,29 +68,23 @@ function App() {
     });
   }
 
-  async function updateCompletedInDatabase() {
-    const response = await fetch(`${url}/items/${edit.id}`, {
+  async function updateCompletedInDatabase(item) {
+    const response = await fetch(`${url}/items/${item.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
-        item: edit.item,
-        completed: !edit.completed
+        item: item.item,
+        completed: !item.completed
        }),
     });
-    console.log(response)
     let data = await response.json()
-    console.log(data)
+    console.log(data.payload[0])
   }
 
-  function setEditItem(item) {
-    setEdit(item)
-  }
-
-  console.log(edit)
   return (
     <section>
       <InputList addToList={addToList} buttonText={"Add To List"} />
-      <ShowList list={list} tickItem={tickItem} updateCompletedInDatabase={updateCompletedInDatabase} setEditItem={setEditItem}/>
+      <ShowList list={list} tickItem={tickItem} updateCompletedInDatabase={updateCompletedInDatabase} />
       <ClearList clearList={clearList} buttonText={"Clear List"} />
     </section>
   );
