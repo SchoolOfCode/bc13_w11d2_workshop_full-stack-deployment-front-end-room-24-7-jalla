@@ -12,6 +12,7 @@ const url = process.env.REACT_APP_BACKEND_URL ?? "http://localhost:3000";
 
 function App() {
   const [list, setList] = useState([]);
+  const [edit, setEdit] = useState([])
 
   // Fetching shopping list data from shopping list API.
   useEffect(() => {
@@ -64,23 +65,29 @@ function App() {
     });
   }
 
-  async function updateCompletedInDatabase(item) {
-    const response = await fetch(`${url}/items/${item.id}`, {
+  async function updateCompletedInDatabase() {
+    const response = await fetch(`${url}/items/${edit.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
-        item: item.item,
-        completed: !item.completed
+        item: edit.item,
+        completed: !edit.completed
        }),
     });
+    console.log(response)
     let data = await response.json()
     console.log(data)
   }
 
+  function setEditItem(item) {
+    setEdit(item)
+  }
+
+  console.log(edit)
   return (
     <section>
       <InputList addToList={addToList} buttonText={"Add To List"} />
-      <ShowList list={list} tickItem={tickItem} updateCompletedInDatabase={updateCompletedInDatabase}/>
+      <ShowList list={list} tickItem={tickItem} updateCompletedInDatabase={updateCompletedInDatabase} setEditItem={setEditItem}/>
       <ClearList clearList={clearList} buttonText={"Clear List"} />
     </section>
   );

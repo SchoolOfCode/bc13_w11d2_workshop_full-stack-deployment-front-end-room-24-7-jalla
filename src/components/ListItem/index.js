@@ -3,11 +3,11 @@
 import React from "react";
 import "./listItem.css";
 
-function ListItem({ name, completed, tickItem, updateCompletedInDatabase }) {
-  
+function ListItem({ name, completed, tickItem, updateCompletedInDatabase, setEditItem }) {
   function onClicks() {
     tickItem();
     updateCompletedInDatabase();
+    setEditItem();
   }
 
   return (
